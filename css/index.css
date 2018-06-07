@@ -1,3 +1,8 @@
+/*common css*/
+html,body{position: relative;}
+*{margin: 0;padding: 0;box-sizing: border-box;}
+li{list-style: none;}
+a{text-decoration: none;}
 /*flex布局*/
 .flex{display: flex;display: -webkit-flex;}
 /*水平轴是主轴 垂直轴是交叉轴*/
@@ -32,11 +37,7 @@
 .ac-s{align-content: stretch;} 
 /*item属性*/
 .fg-1{flex-grow: 1;}
-/*项目宽高分配比例*/
-html,body{height:100%;position: relative;}
-*{margin: 0;padding: 0;box-sizing: border-box;}
-li{list-style: none;}
-a{text-decoration: none;}
+/*组件css*/
 /*--------------pop------------------*/
 .wrap{}
 .wrap img{width:100px;height:60px;display: block;}
@@ -92,3 +93,11 @@ a{text-decoration: none;}
 .slide{padding:50px 25px;}
 .show{overflow: hidden;position: relative;margin:0 auto;}
 .slide{position: relative;}
+/*Five star evaluation*/
+.stars0 ul{margin:30px 0;}
+.stars0 ul li{}
+.stars0 ul li span{width:50px;height:50px;border:1px solid #ccc;margin: 0 5px;display:block;}
+.stars0 ul li span.on{background: red;}
+/*drag*/
+.dragWrap{width:500px;height:200px;border:1px solid #825e5e;position: relative;}
+.drag{width:50px;height:50px;background:#987a7a;position: absolute;left:0;right: 0;}
