@@ -1,8 +1,5 @@
 ### qxnJsAccumulation
 #### js积累
 ```
-组件库-插件化的集合  
-只用原生js(es5,es6)写  
-
-有空了完善
+有空把jq部分改为js，只用原生js(es5,es6)写  
 ```

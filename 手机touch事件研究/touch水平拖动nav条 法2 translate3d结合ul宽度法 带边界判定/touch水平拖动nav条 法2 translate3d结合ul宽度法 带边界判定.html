@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<!--法1 ul宽度法-->
+<div class="nav">
+    <ul>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+    </ul>
+</div>
+
+<!--法2 ul translate3d移动法-->
+<!--结构似乎是一样的-->
+
+</body>
+</html>
+<script>
+    $(function (){
+        //jq页面单位比例计算
+        function setRootSize(){
+            //可视窗口宽度
+            var deviceWidth = $(window).width();
+            //除以设计稿宽度//大于设计稿 默认html 100px //小于设计稿 100px按比例缩小
+            //html里font-size 62.5% 表示默认字体改为10px 通过10/16*100%得来 原始默认16px
+            //个人觉得有了js控制，这html 62.5%不设也可
+            //body里font-size: .24rem;设置了默认字体大小24px
+            if(deviceWidth>640){deviceWidth = 640;}
+            $("html").css("font-size",deviceWidth/6.4);
+        }
+        setRootSize();
+        $(window).resize(setRootSize);
+        //法1 ul宽度法
+//        function navSlide(div){
+//            var odiv = $(div);
+//            var oul = odiv.children();
+//            var oli = oul.children();
+//            var allWidth = 0;
+//            function startSize(){
+//                allWidth = 0;
+//                //all li宽度
+//                oli.each(function(i,d){
+//                    allWidth += $(d).outerWidth(true);
+//                });
+//                //ul宽度
+//                oul.width(allWidth+1);
+//            }
+//            startSize();
+//            //调整窗口时 再自调一遍
+//            $(window).resize(startSize);
+//            //起坐标
+//            var startX = 0;
+//            var startY = 0;
+//            //移动的距离
+//            var movedDisX = 0;
+//            //上次的位置
+//            var lastDisX = 0
+//            //现在的位置
+//            var nowX = 0;
+//            var nowY = 0;
+//
+//            //touch移动 绑定
+//            oul.bind("touchstart",touchstart);
+//            oul.bind("touchmove",touchmove);
+//            oul.bind("touchend",touchend);
+//            function touchstart(e){
+//                var ev = e||window.event;
+//                //获取开始坐标
+//                startX = e.originalEvent.touches[0].pageX;
+//                //获取上次的位置
+//                lastDisX += movedDisX;
+//            }
+//            function touchmove(e){
+//                var ev = e||window.event;
+//                //阻止move的默认事件
+//                //ev.preventDefault();
+//                //本次移动的距离
+//                movedDisX = e.originalEvent.touches[0].pageX - startX;
+//                //现在的位置
+//                nowX = lastDisX + movedDisX;
+//                //边界判定
+//                if(nowX > 0){lastDisX = 0;nowX = 0;}
+//                if(nowX < odiv.width() - allWidth){lastDisX = odiv.width() - allWidth;nowX = odiv.width() - allWidth;}
+//                //赋值
+//                oul.css("left",nowX);
+//            }
+//            function touchend(e){
+//                var ev = e||window.event;
+//            }
+//        }
+//        navSlide(".nav");
+
+        //法2 ul translate3d结合ul宽度 移动法
+        function navSlide(div){
+            var odiv = $(div);
+            var oul = odiv.children();
+            var oli = oul.children();
+            var allWidth = 0;
+            function startSize(){
+                allWidth = 0;
+                //all li宽度
+                oli.each(function(i,d){
+                    allWidth += $(d).outerWidth(true);
+                });
+                //ul宽度
+                oul.width(allWidth+1);
+            }
+            startSize();
+            //调整窗口时 再自调一遍
+            $(window).resize(startSize);
+            //起坐标
+            var startX = 0;
+            var startY = 0;
+            //移动的距离
+            var movedDisX = 0;
+            //上次的位置
+            var lastDisX = 0;
+            //现在的位置
+            var nowX = 0;
+            var nowY = 0;
+            //touch移动 绑定
+            oul.bind("touchstart",touchstart);
+            oul.bind("touchmove",touchmove);
+            oul.bind("touchend",touchend);
+            function touchstart(e){
+                var ev = e||window.event;
+                //获取开始坐标
+                startX = e.originalEvent.touches[0].pageX;
+                //获取上次的位置
+                lastDisX += movedDisX;
+            }
+            function touchmove(e){
+                var ev = e||window.event;
+                //阻止move的默认事件
+                ev.preventDefault();
+                //本次移动的距离
+                movedDisX = e.originalEvent.touches[0].pageX - startX;
+                //现在的位置
+                nowX = lastDisX + movedDisX;
+                //边界判定
+                if(nowX > 0){lastDisX = 0;nowX = 0;}
+                if(nowX < odiv.width() - allWidth){lastDisX = odiv.width() - allWidth;nowX = odiv.width() - allWidth;}
+                //赋值
+//                console.log("transform"+"translate3d("+nowX+",0,0)")
+                oul.css({"transform":"translate3d("+nowX+"px,0px,0px)"})
+            }
+            function touchend(e){
+                var ev = e||window.event;
+            }
+        }
+        navSlide(".nav");
+    })
+</script>

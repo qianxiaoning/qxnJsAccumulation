@@ -1,0 +1,77 @@
+/*公共部分*/
+*{margin: 0;padding: 0;}
+li{list-style: none;}
+a{text-decoration: none;}
+body{position: relative;}
+html,body{height:100%;overflow: hidden;}
+/*页面部分*/
+.tit{height:50px;    background: #f9f9f9;}
+.wrap{overflow: hidden;}
+.preview{    width: 80px;
+    height: 35px;
+    border: 0;
+    border-radius: 4px;
+    background: #178cdf;
+    color: #fff;    margin: 7px 0 0 20px;}
+.active{width: 100px;
+    height: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    background: #f9f9f9;
+    cursor: move;
+    border: 1px dashed #999;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;position: absolute;z-index: 5;}
+.sample.active1{position: absolute;z-index: 5;}
+.left,.center,.right{float: left;height:100%;}
+.left{width:15%;background: rgba(204,184,184,.3);position: relative;}
+.center{width:65%;background: rgba(204,204,191,.3);overflow-y: auto;padding-bottom: 150px;    box-sizing: border-box;}
+.right{width:20%;background: rgba(7,103,7,.3);}
+.opacity{opacity:.8;}
+.basic{}
+.sub_tit{    font-size: 14px;
+    font-weight: normal;text-indent: 20px;
+    margin: 5px 0;}
+.sub_div ul{overflow: hidden;}
+.sub_div li{    width: 100px;
+    height: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    background: #f9f9f9;
+    cursor: move;
+    position: relative;
+    border: 1px dashed #999;
+    float: left;    margin: 2px 20px;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;
+}
+.sample{    padding: 10px;
+    background: #fff;position: relative;}
+.sample:hover{background: #EAF3F6;}
+.sample h3{    font-weight: normal;
+    font-size: 14px;}
+.sample01 input{width: 300px;
+    height: 30px;display: block;}
+.sample02 textarea{width: 456px;
+    height: 150px;display: block;resize: none;}
+.sample03 input{width: 300px;
+    height: 30px;display: block;}
+.sample04 input{width: 300px;
+    height: 30px;display: block;}
+.sample07 select{    width: 240px;
+    height: 30px;}
+.sample08 select{    width: 240px;
+    height: 30px;}
+.sample09 hr{margin: 0;}
+.placeholder{height:40px;border:1px dashed #ccc;    background: #fff;}
+.placeholder1{border:1px dashed #ccc;    background: #fff;}
+.btn_group{    position: absolute;
+    right: 0;
+    top: 0;display: none;}
+.btn_group.show{display: block;}
+.btn_group i{font-style: normal;
+    padding:10px;cursor: pointer;}

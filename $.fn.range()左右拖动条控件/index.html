@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../commonCode/jquery-3.3.1.js"></script>
+    <style type="text/css">
+        /*公共部分*/
+        *{margin:0;padding:0;}
+        li{list-style:none;}
+        a{text-decoration: none;}
+        .clear{clear: both;}
+        .fr{float: right!important;}
+        /*主体*/
+        .wrap{height:300px;position: relative;background: #e6e6e6;overflow: hidden;}
+        .frame{position: absolute;
+            width: 100%;
+            /*bottom: -235px;*/
+            bottom: 0;
+            left: 0;}
+        .btn{     display: block;
+            width: 60px;
+            height: 20px;
+            border-radius: 5px 5px 0 0;
+            margin: 0 auto;
+            background: rgb(46, 110, 163) url(img/up.png) no-repeat center center;
+            background-size: 20px;}
+        .btn:hover{background-color: #3fd079;}
+        .head{    background:rgb(46, 110, 163);
+            color: #fff;
+            border-radius: 5px 5px 0 0;
+            height: 35px;
+            line-height: 35px;
+            text-indent: 20px;}
+        .main{    background: #fff;
+            height: 200px;}
+        .four{    float: left;
+            height: 100%;
+            width: 300px;margin: 0 10px;}
+        .one{
+        }
+        .tit{font-weight: normal;font-size: 16px;height: 54px;
+            line-height: 54px;}
+        .range{
+            float: left;
+            width: 80%;
+            height: 16px;    border-radius: 10px;
+            background: rgb(185,188,189);position: relative;box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.27) inset;
+        }
+        .rBtn{display: block;
+            width: 20px;
+            height: 24px;
+            border-radius: 10px;
+            background: rgb(240,236,233);box-shadow: 0px 1px 5px #383838;
+            position: absolute;
+            top: -4px;
+            left: 0;}
+        .value{    height: 100%;
+            background: #84D1D2;
+            width: 0;background: -webkit-gradient(linear, 100% 0%, 0% 0%, from(rgb(132,209,210)), to(rgb(95,177,214))); box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.27) inset;border-radius: 10px 0 0 10px;}
+        .pop{    position: absolute;
+            width: 36px;
+            height: 28px;
+            top: -28px;
+            left: -8px;
+            background: transparent url(img/pop.png) no-repeat;
+            background-size: 36px;text-align: center;
+            font-size: 12px;display: none;}
+        .name{    float: left;
+            height: 16px;
+            line-height: 16px;
+            width: 20%;font-size: 14px;}
+        .list{margin-bottom: 18px;}
+        .h90{    height: 90px;
+            line-height: 90px;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <!--控件框-->
+    <div class="frame">
+        <span class="btn"></span>
+        <div class="head">参数设置</div>
+        <div class="main">
+            <div class="four">
+                <h3 class="tit h90">帧数调节</h3>
+                <!--拖动条控件-->
+                <div class="range fr">
+                    <!--当前条-->
+                    <div class="value"></div>
+                    <!--按钮-->
+                    <span class="rBtn">
+                        <!--小气泡-->
+                        <span class="pop">1120.4</span>
+                    </span>
+                </div>
+            </div>
+            <div class="four">
+                <h3 class="tit">亮度</h3>
+                <div class="list">
+                    <span class="name">Red</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">0</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="list">
+                    <span class="name">Green</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">0</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="list">
+                    <span class="name">Blue</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">0</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="list">
+                    <span class="name">整体</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">255</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="four">
+                <h3 class="tit">GAMMA</h3>
+                <div class="list">
+                    <span class="name">Red</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">30</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="list">
+                    <span class="name">Green</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">20</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="list">
+                    <span class="name">Blue</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">120</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="list">
+                    <span class="name">整体</span>
+                    <div class="range">
+                        <div class="value"></div>
+                        <span class="rBtn">
+                        <span class="pop">170</span>
+                    </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+//调用部分
+    $(function(){
+        //上拉收缩
+        upDown();
+        //拖动条控件
+        $('.rBtn').range();
+    });
+//上拉收缩
+function upDown(){
+    var btn = $('.btn');
+    var fra = $('.frame');
+    var height = $('.head').height()+$('.main').height();
+    var logic=false;
+    //上拉
+    function up(a,b){
+        a.animate({"bottom":"0"},function(){
+            b.css({"backgroundImage":"url(img/down.png)"});
+        });
+    }
+    //收缩
+    function down(a,b){
+        a.animate({"bottom":-height+'px'},function(){
+            b.css({"backgroundImage":"url(img/up.png)"});
+        });
+    }
+    btn.click(function(){
+        if(!logic){
+            up(fra,btn);
+            logic=true;
+        }
+        else{
+            down(fra,btn);
+            logic=false;
+        }
+    })
+}
+//拖动条控件
+$.fn.range = function(){
+    var that = this;
+    //赋滚动条初始值
+    var allParent = that.parent('.range');
+    var allValue = allParent.find('.value');
+    var allPop = allParent.find('.pop');
+    var realWidth255 = allParent.eq(0).width()-that.eq(0).width();
+    for(var i=0;i<that.length;i++){
+        var v255 = allPop.eq(i).text();
+        var that255 = that.eq(i);
+        var value255 = allValue.eq(i);
+        if(v255<=0){v255=0}
+        if(v255>=255){v255=255}
+        var width255 = v255/255*realWidth255;
+        that255.css({"left":width255});
+        value255.width(width255);
+    }
+    //点击事件
+    that.mousedown(function(e){
+        var _this=$(this);
+        var parent = _this.parent('.range');
+        var realWidth = parent.width()-_this.width();
+        var value = parent.find('.value');
+        var pop = parent.find('.pop');
+        var e=e||window.event;
+        //记录点击偏移值
+        var offsetX = e.offsetX+parent.get(0).offsetLeft;
+        pop.show();
+        //拖动事件
+        $(document).mousemove(function(e){
+            var e=e||window.event;
+            e.preventDefault();
+            e.returnValue=false;
+            var left = e.pageX-offsetX;
+            //边界判定
+            if(left<=0){left=0}
+            if(left>=realWidth){left=realWidth}
+            _this.css({"left":left});
+            value.css({"width":left});
+            //气泡赋值
+            var percent = Math.floor(value.width()/realWidth*255);
+            pop.text(percent);
+        });
+        //松开事件
+        $(document).mouseup(function(e){
+            var e=e||window.event;
+            $(document).off('mousemove mouseup');
+            pop.hide();
+        })
+    });
+    return this;
+}
+</script>
+</body>
+</html>

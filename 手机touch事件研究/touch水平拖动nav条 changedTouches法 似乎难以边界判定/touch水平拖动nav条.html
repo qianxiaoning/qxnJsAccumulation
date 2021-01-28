@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<!--法1 ul宽度法-->
+<div class="nav">
+    <ul>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+
+<!--法2 ul translate3d移动法-->
+
+</body>
+</html>
+<script>
+    $(function (){
+        //jq页面单位比例计算
+        function setRootSize(){
+            //可视窗口宽度
+            var deviceWidth = $(window).width();
+            //除以设计稿宽度//大于设计稿 默认html 100px //小于设计稿 100px按比例缩小
+            //html里font-size 62.5% 表示默认字体改为10px 通过10/16*100%得来 原始默认16px
+            //个人觉得有了js控制，这html 62.5%不设也可
+            //body里font-size: .24rem;设置了默认字体大小24px
+            if(deviceWidth>640){deviceWidth = 640;}
+            $("html").css("font-size",deviceWidth/6.4);
+        }
+        setRootSize();
+        $(window).resize(setRootSize);
+        //法1 ul宽度法
+        function navSlide(div){
+            var odiv = $(div);
+            var oul = odiv.children();
+            var oli = oul.children();
+            var allWidth = 0;
+            //起坐标
+            var startX = 0;
+            var startY = 0;
+            //止坐标
+            var endX = 0;
+            var endY = 0;
+            //all li宽度
+            oli.each(function(i,d){
+                allWidth += $(d).outerWidth(true);
+            });
+            //ul宽度
+            oul.width(allWidth);
+            //touch移动 绑定
+            oul.bind("touchstart",touchstart);
+            oul.bind("touchmove",touchmove);
+            oul.bind("touchend",touchend);
+            function touchstart(e){
+                var ev = e||window.event;
+                //获取开始坐标
+                startX = e.originalEvent.touches[0].pageX;
+            }
+            function touchmove(e){
+                var ev = e||window.event;
+                //阻止move的默认事件
+                //ev.preventDefault();
+                //赋值
+                //第一次移动 获取 移动坐标减去起坐标 得到移动的距离left值 +endX 0
+                //第二次移动 再次获取 移动坐标减去起坐标的值 加上上次的偏移值endX
+                //第三次移动 再次获取 移动坐标减去起坐标的值 加上上次的总的偏移值endX
+                //......重复
+
+                oul.css("left",e.originalEvent.touches[0].pageX - startX + endX);
+            }
+            function touchend(e){
+                var ev = e||window.event;
+                //第一次移动结束 记录移动的距离 endX
+                //第二次移动结束 记录移动的距离 endX 加上上次的偏移值 endX
+                //第三次移动结束 记录移动的距离 endX 加上上次的偏移值 endX
+                //......重复
+                endX = e.originalEvent.changedTouches[0].pageX - startX + endX;
+            }
+        }
+        navSlide(".nav");
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //法2 ul translate3d移动法
+    })
+</script>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" src="../commonCode/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            //左侧图标拖拽
+            drag("li.basic");
+            //禁止选中左侧图标文字
+            noSelection();
+            //wrapHeight高度计算
+            wrapHeight();
+            //sample示例框拖动
+            sampleDrag();
+            //点击显示复制 删除 功能
+            sampleCopyDelete();
+        })
+    </script>
+</head>
+<body>
+<div class="tit">
+    <button type="button" value="预览" class="preview">预览</button>
+</div>
+<div class="wrap">
+    <!--左 控件部分-->
+    <div class="left">
+        <div class="basic">
+            <h3 class="sub_tit">基础字段</h3>
+            <div class="sub_div">
+                <ul>
+                    <li class="basic basic01">单行文本</li>
+                    <li class="basic basic02">多行文本</li>
+                    <li class="basic basic03">数字</li>
+                    <li class="basic basic04">日期时间</li>
+                    <li class="basic basic05">单选按钮组</li>
+                    <li class="basic basic06">复选框组</li>
+                    <li class="basic basic07">下拉框</li>
+                    <li class="basic basic08">下拉复选框</li>
+                    <li class="basic basic09">分割线</li>
+                </ul>
+            </div>
+        </div>
+        <!--增强字段-->
+        <div class="strengthen">
+            <h3 class="sub_tit">增强字段</h3>
+            <div class="sub_div">
+                <ul>
+                    <li class="basic strengthen01">地址</li>
+                    <li class="basic strengthen02">定位</li>
+                    <li class="basic strengthen03">图片</li>
+                    <li class="basic strengthen04">附件</li>
+                    <li class="basic strengthen05">子表单</li>
+                    <li class="basic strengthen06">关联查询</li>
+                    <li class="basic strengthen07">关联数据</li>
+                </ul>
+            </div>
+        </div>
+        <!--部门成员字段-->
+        <div class="departMember">
+            <h3 class="sub_tit">部门成员字段</h3>
+            <div class="sub_div">
+                <ul>
+                    <li class="basic departMember01">成员单选</li>
+                    <li class="basic departMember02">成员多选</li>
+                    <li class="basic departMember03">部门单选</li>
+                    <li class="basic departMember04">部门多选</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--中 示例部分-->
+    <div class="center">
+        <div class="sample sample04"><span class="btn_group"><i class="copy">复制</i><i class="delete">删除</i></span><h3>日期时间</h3><input type="text"/></div>
+        <div class="sample sample04"><h3>日期时间</h3><input type="text"/></div>
+        <div class="sample sample04"><h3>日期时间</h3><input type="text"/></div>
+    </div>
+    <!--右 属性部分-->
+    <div class="right"></div>
+</div>
+<script type="text/javascript">
+    //        拖拽
+    function drag(a) {
+        var left = $(".left");
+        var center = $(".center");
+        var a = $(a);
+        a.off("mousedown").bind("mousedown",function(e){
+            var ev = e||event;
+            //记录鼠标偏移值
+            var disX = ev.clientX - $(this).offset().left;
+            var disY = ev.clientY - $(this).offset().top;
+            //获取序号值
+//                var liIndex = $(this).index()+1;
+            //clone
+            var b = $(this).clone(true);
+            b.addClass("active");
+            $("body").append(b);
+            b.addClass("opacity");
+            b.css({"left":$(this).offset().left,"top":$(this).offset().top});
+            //逻辑变量
+            var logic = true;
+            $(document).off("mousemove").bind("mousemove",function(e){
+                var ev = e||event;
+                //阻止默认事件
+                ev.preventDefault();
+                ev.returnValue = false;
+                //创建placeholder框
+                if(logic==true&&ev.pageX>left.width()&&ev.pageX<(left.width()+center.width())){
+                    placeholder = $("<div class='placeholder'></div>");
+                    $("body").append(placeholder);
+                    logic=false;
+                }
+                //移动placeholder框
+                if($(".sample").length>0){
+                    //第一个判断条件
+                    if(ev.pageY - disY>0&&ev.pageY - disY<$(".sample").eq(0).offset().top&&ev.pageX>left.width()&&ev.pageX<(left.width()+center.width())){
+                        $(".placeholder").insertBefore($(".sample").eq(0));
+                    }
+                    //循环之后的判断条件
+                    for(var i=1;i<$(".sample").length;i++){
+                        if(ev.pageY - disY>$(".sample").eq(i-1).offset().top&&ev.pageY - disY<$(".sample").eq(i).offset().top&&ev.pageX>left.width()&&ev.pageX<(left.width()+center.width())){
+                            $(".placeholder").insertBefore($(".sample").eq(i));
+                        }
+                    }
+                }
+                //计算移动后的坐标
+                //js中页面坐标 clientX,clientY
+                //jq中mousemove方法自带pageX,pageY作为页面坐标
+                var l = ev.pageX - disX;
+                //改
+                var t = ev.pageY - disY;
+//                    //边界检测 左上
+//                    if(l<=0){l=0}
+//                    if(t<=0){t=0}
+//                    //边界检测 右下
+//                    if(l>=$(window).width()- a.width()){l = $(window).width()- a.width()}
+//                    if(t>=$(window).height()- a.height()){t = $(window).height()- a.height()}
+                //赋值
+                b.css({"left":l+"px","top":t+"px"});
+            })
+            //鼠标松开事件
+            b.off("mouseup").bind("mouseup",function(e){
+                var ev = e||event;
+                //接触mouse事件绑定
+                $(document).unbind("mousemove","");
+//                    $(document).unbind("mousedown","");
+                //移除b
+                b.remove();
+                //创建输入框
+                //判断
+                if(ev.pageX>left.width()&&ev.pageX<(left.width()+center.width())){
+                    if($(this).hasClass("basic01")){
+                        var inputText = $('<div class="sample sample01"><h3>单行文本</h3><input type="text"/></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic02")){
+                        var inputText = $('<div class="sample sample02"><h3>多行文本</h3><textarea></textarea></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic03")){
+                        var inputText = $('<div class="sample sample03"><h3>数字文本</h3><input type="text"></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic04")){
+                        var inputText = $('<div class="sample sample04"><h3>日期时间</h3><input type="text"/></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic05")){
+                        var inputText = $('<div class="sample sample05"><h3>单选按钮组</h3><input type="radio" name="option" value="选项1"/>选项1<br/><input type="radio" name="option" value="选项2"/>选项2<br/><input type="radio" name="option" value="选项3"/>选项3<br/></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic06")){
+                        var inputText = $('<div class="sample sample06"><h3>复选框组</h3><input type="checkbox" name="option1" value="选项1"/>选项1<br/><input type="checkbox" name="option2" value="选项2"/>选项2<br/><input type="checkbox" name="option3" value="选项3"/>选项3<br/></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic07")){
+                        var inputText = $('<div class="sample sample07"><h3>下拉框</h3><select><option value="选项1">选项1</option><option value="选项2">选项2</option><option value="选项3">选项3</option></select></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic08")){
+                        var inputText = $('<div class="sample sample08"><h3>下拉复选框</h3><select><option value="选项1">选项1</option><option value="选项2">选项2</option><option value="选项3">选项3</option></select></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                    if($(this).hasClass("basic09")){
+                        var inputText = $('<div class="sample sample09"><h3>分割线</h3><hr/></div>');
+                        $(".placeholder").replaceWith(inputText);
+                    }
+                }
+                else{}
+            })
+        })
+    }
+    //禁止选中
+    function noSelection(){
+        var li = $(".sub_div li");
+        li.bind("selectstart",function(){return false;});
+    }
+    //wrapHeight
+    function wrapHeight(){
+        var winHeight = $(window).height();
+        var wrap = $(".wrap");
+//        头部
+        var tit = $(".tit").height();
+        wrap.css({"height":winHeight-tit})
+    }
+    //sample示例框拖动
+    function sampleDrag(){
+        var left = $(".left");
+        var center = $(".center");
+        var sample = $(".sample");
+        center.off("mousedown").on("mousedown",".sample",function(e){
+            var ev = e||event;
+            //记录鼠标偏移值
+            var disY = ev.clientY - $(this).offset().top;
+            //clone
+            var b = $(this).clone(true);
+            b.addClass("active1");
+            $("body").append(b);
+            b.addClass("opacity");
+            b.css({"left":$(this).offset().left,"top":$(this).offset().top});
+            //设宽
+            b.css({"width":$(this).width()});
+            //背景
+            b.css({"backgroundColor":$(this).css("backgroundColor")});
+            //b变成absolute
+            b.css({"position":"absolute"});
+            //原来的$(this)替换为placeholder
+            var placeholder1 = $("<div class='placeholder1'></div>");
+            placeholder1.css({"height":$(this).height()});
+            $(this).replaceWith(placeholder1);
+            $(document).off("mousemove").bind("mousemove",function(e){
+                var ev = e||event;
+                //阻止默认事件
+                ev.preventDefault();
+                ev.returnValue = false;
+                //计算移动后的坐标
+                //js中页面坐标 clientX,clientY
+                //jq中mousemove方法自带pageX,pageY作为页面坐标
+                var t = ev.pageY - disY;
+                //赋值
+                b.css({"top":t+"px"});
+                //计算高度 然后移动placeholder1
+                //移动placeholder框
+                //第一个判断条件
+                if(ev.pageY - disY>0&&ev.pageY - disY<$(".sample").eq(0).offset().top&&ev.pageX>left.width()&&ev.pageX<(left.width()+center.width())){
+                    $(".placeholder1").insertBefore($(".sample").eq(0));
+                }
+                //循环之后的判断条件
+                for(var i=1;i<$(".sample").length;i++){
+                    if(ev.pageY - disY>$(".sample").eq(i-1).offset().top&&ev.pageY - disY<$(".sample").eq(i).offset().top&&ev.pageX>left.width()&&ev.pageX<(left.width()+center.width())){
+                        $(".placeholder1").insertBefore($(".sample").eq(i));
+                    }
+                }
+            })
+            //鼠标松开事件
+            b.off("mouseup").bind("mouseup",function(e){
+                var ev = e||event;
+                //接触mouse事件绑定
+                $(document).unbind("mousemove","");
+                //移除b
+                b.remove();
+                $(".placeholder1").replaceWith(b);
+                //b的去class active1和opacity
+                b.removeClass("active1 opacity");
+                //b的变成static
+                b.css({"position":"static"});
+                //颜色变回
+                b.css({"backgroundColor":"#fff"});
+                //添加新的b的hover效果
+                b.hover(function(){
+                    $(this).css({"background":"#EAF3F6"});
+                },function(){
+                    $(this).css({"background":"#fff"});
+                })
+            })
+        })
+    }
+    //点击显示复制 删除 功能
+    function sampleCopyDelete(){
+        var sample = $(".sample");
+        sample.click(function () {
+            console.log(1)
+            $(this).css({"background":"#D6EAF4"});
+        })
+    }
+</script>
+</body>
+</html>

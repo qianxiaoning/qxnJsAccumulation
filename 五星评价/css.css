@@ -1,0 +1,25 @@
+*{margin:0;padding:0;}
+/*----------------1------------*/
+.stars0 ul{overflow: hidden;margin:30px auto;}
+.stars0 ul li{display: inline-block;width:50px;height:50px;border:1px solid #ccc;}
+.stars0 ul li.on{background: red;}
+/*----------------2------------*/
+.stars1 ul{overflow: hidden;margin:30px auto;}
+.stars1 ul li{display: inline-block;width:50px;height:50px;border:1px solid #ccc;}
+.stars1 ul li:hover{background: red;}
+.stars1 ul li.on{background: red;}
+/*----------------3------------*/
+.stars2 ul{overflow: hidden;margin:30px auto;}
+.stars2 ul li{display: inline-block;width:50px;height:50px;border:1px solid #ccc;}
+/*.stars2 ul li:hover{background: red;}*/
+.stars2 ul li.on{background: red;}
+/*----------------4------------*/
+.stars3 ul{overflow: hidden;margin:30px auto;}
+.stars3 ul li{display: inline-block;width:50px;height:50px;border:1px solid #ccc;}
+/*.stars3 ul li:hover{background: red;}*/
+.stars3 ul li.on{background: red;}
+/*----------------5------------*/
+.stars4 ul{overflow: hidden;margin:30px auto;}
+.stars4 ul li{display: inline-block;width:50px;height:50px;border:1px solid #ccc;}
+/*.stars3 ul li:hover{background: red;}*/
+.stars4 ul li.on{background: red;}

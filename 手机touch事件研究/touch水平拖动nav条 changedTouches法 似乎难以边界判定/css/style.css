@@ -1,0 +1,10 @@
+*{margin: 0;padding: 0;}
+/*-----------body里的默认字体大小24px------------*/
+/*html{font-size: 62.5%;/!*-----10/16*100%=62.5%---------------*!/}*/
+body{font-size: .24rem;}
+a{text-decoration: none;color:#ddd;padding: .1rem .2rem;}
+li{list-style: none;}
+.nav{overflow: hidden;width: 5rem;margin: 2rem auto;position: relative;height:.47rem;}
+.nav ul{position: absolute;top:0;left: 0;}
+.nav ul li{float: left;}
+.nav ul li a{display: block;background:#B092CE;}

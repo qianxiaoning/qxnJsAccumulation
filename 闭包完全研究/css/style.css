@@ -1,0 +1,10 @@
+/*公共*/
+*{margin: 0;padding: 0;}
+li{list-style: none;}
+a{text-decoration: none;}
+/*index*/
+.container{overflow: hidden;}
+.container .left{width: 500px;height: 800px;border: 2px solid red;float:left;}
+.container .left .tree{width: 400px;height: 500px;border: 2px solid #0b0b4a;}
+.container .right{width: 1000px;height: 800px;border: 2px solid #47965f;float: left;margin-left: 20px;}
+.container .right .echarts{width: 400px;height: 200px;border: 2px solid #94940b;margin-left: 20px;}

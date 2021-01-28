@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+
+<div class="nav">
+    <ul>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类</a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
+<script>
+    $(function (){
+        //jq页面单位比例计算
+        function setRootSize(){
+            //可视窗口宽度
+            var deviceWidth = $(window).width();
+            //除以设计稿宽度//大于设计稿 默认html 100px //小于设计稿 100px按比例缩小
+            //html里font-size 62.5% 表示默认字体改为10px 通过10/16*100%得来 原始默认16px
+            //个人觉得有了js控制，这html 62.5%不设也可
+            //body里font-size: .24rem;设置了默认字体大小24px
+            if(deviceWidth>640){deviceWidth = 640;}
+            $("html").css("font-size",deviceWidth/6.4);
+        };
+        setRootSize();
+        $(window).resize(setRootSize);
+    })
+</script>

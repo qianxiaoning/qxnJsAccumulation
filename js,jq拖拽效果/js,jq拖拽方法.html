@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style type="text/css">
+    *{margin: 0;padding: 0;}
+    #a{width:100px;height:100px;background: red;position: absolute;}
+    .a{width:100px;height:100px;background: red;position: absolute;}
+</style>
+<body>
+<div id="a" class="a"></div>
+</body>
+</html>
+<!--js拖拽方法-->
+<!--<script type="text/javascript">-->
+    <!--function jsDrag(){-->
+        <!--//声明变量-->
+        <!--var a = document.getElementById("a");-->
+<!--//检测对象有没取到-->
+<!--//    console.log(a)-->
+<!--//绑定事件-->
+<!--//鼠标按下事件-->
+        <!--a.onmousedown = function(e){-->
+<!--//检测-->
+<!--//    console.log(1)-->
+            <!--//火狐谷歌事件兼容-->
+            <!--var ev = e||event;-->
+            <!--//获取鼠标在元素上的偏移值-->
+            <!--var disX = ev.clientX - a.offsetLeft;-->
+            <!--var disY = ev.clientY - a.offsetTop;-->
+            <!--//检测-->
+<!--//    console.log(disX);-->
+<!--//    console.log(disY);-->
+            <!--//鼠标移动事件-->
+            <!--document.onmousemove = function(e){-->
+                <!--//火狐谷歌事件兼容-->
+                <!--var ev = e||event;-->
+                <!--//检测-->
+<!--//        console.log(1);-->
+                <!--//计算出窗口坐标减去偏移值的数值-->
+                <!--var l = ev.clientX - disX;-->
+                <!--var t = ev.clientY - disY;-->
+                <!--//检测-->
+                <!--//ie console.log报错未定义解决办法-->
+                <!--window.console = window.console || (function(){-->
+                            <!--var c = {}; c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c.trace = c.assert = function(){};-->
+                            <!--return c;-->
+                        <!--})();-->
+
+        <!--console.log(l);-->
+        <!--console.log(t);-->
+                <!--//边界检测 左上-->
+                <!--if(l<=0){l=0}-->
+                <!--if(t<=0){t=0}-->
+                <!--//根节点兼容-->
+<!--//ie下document.body   标准下document.documentElement                -->
+                <!--//边界检测 右下-->
+                <!--if(l>=document.documentElement.clientWidth- a.offsetWidth) {-->
+                    <!--l=document.documentElement.clientWidth- a.offsetWidth-->
+                <!--}-->
+                <!--if(t>=document.documentElement.clientHeight- a.offsetHeight){-->
+                    <!--t=document.documentElement.clientHeight- a.offsetHeight-->
+                <!--}-->
+                <!--//给a赋值-->
+                <!--a.style.left = l+"px";-->
+                <!--a.style.top = t+"px";-->
+            <!--}-->
+            <!--//鼠标松开事件-->
+            <!--document.onmouseup = function(){-->
+                <!--//检测-->
+<!--//        console.log(1)-->
+                <!--//清空移动松开事件-->
+                <!--document.onmousemove = null;-->
+                <!--document.onmouseup = null;-->
+            <!--}-->
+        <!--}-->
+    <!--}-->
+    <!--window.onload = jsDrag();-->
+<!--</script>-->
+
+<!--jq拖拽方法-->
+<script type="text/javascript" src="../commonCode/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    //声明变量
+    var a = $(".a");
+    //检测
+//    console.log(a.length);
+    //定义事件
+    //按下事件
+    a.mousedown(function(e){
+        //检测
+//        console.log(1)
+        //火狐谷歌事件兼容
+        var ev = e||event;
+        //记录鼠标偏移值
+        var disX = ev.clientX - a.offset().left;
+        var disY = ev.clientY - a.offset().top;
+        //检测
+//        console.log(ev.clientX);
+//        console.log(ev.clientY);
+//        console.log(a.offset().left);
+//        console.log(a.offset().top);
+//        console.log(disX);
+//        console.log(disX);
+        //移动事件
+        $(document).mousemove(function(e){
+            //检测
+//            console.log(1)
+            //火狐谷歌事件兼容
+            var ev = e||event;
+            //计算移动后的坐标
+            //js中页面坐标 clientX,clientY
+            //jq中mousemove方法自带pageX,pageY作为页面坐标
+            var l = ev.pageX - disX;
+            var t = ev.pageY - disY;
+            //检测
+//            console.log(l);
+//            console.log(t);
+            //边界检测 左上
+            if(l<=0){l=0}
+            if(t<=0){t=0}
+            //边界检测 右下
+//            console.log($(window).width())
+//            console.log($(window).height())
+//            console.log($(document).width())
+//            console.log($(document).height())
+//            console.log($(document.body).width())
+//            console.log($(document.body).height())
+
+            //js属性clientWidth body要兼容处理
+            //jq width()获取不用兼容处理
+            if(l>=$(window).width()- a.width()){l = $(window).width()- a.width()}
+            if(t>=$(window).height()- a.height()){t = $(window).height()- a.height()}
+            //赋值
+            a.css({"left":l+"px","top":t+"px"})
+            //鼠标松开事件
+            $(document).mouseup(function(){
+                //检测
+//                console.log(1);
+                //unbind是jq移除绑定事件 两个参数 前者事件 后者函数名 字符串表示
+                $(document).unbind("mousemove","");
+            })
+        })
+    })
+</script>

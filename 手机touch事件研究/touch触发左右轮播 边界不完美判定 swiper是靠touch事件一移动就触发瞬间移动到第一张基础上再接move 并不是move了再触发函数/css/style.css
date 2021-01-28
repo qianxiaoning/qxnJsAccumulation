@@ -1,0 +1,13 @@
+*{margin: 0;padding: 0;}
+/*-----------body里的默认字体大小24px------------*/
+/*html{font-size: 62.5%;/!*-----10/16*100%=62.5%---------------*!/}*/
+body{font-size: .24rem;font-family: "微软雅黑";}
+a{text-decoration: none;color:#ddd;}
+li{list-style: none;}
+.nav{width:5rem;margin: 2rem auto;height:3rem;}
+.nav ul{}
+.nav ul li{}
+.nav ul li a{display:block;border: 1px solid #786ED6;width: 5rem;height: 3rem;text-align: center;line-height: 3rem;color: #9E6969;}
+
+.dot a{width: 8px;height: 8px;border-radius: 50%;opacity: 0.2;margin: 0px 3px;background:#000;}
+.dot a.active_dot{background: #e03132;opacity: 1;}

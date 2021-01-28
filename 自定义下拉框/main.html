@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <title>暂无标题</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="copyright" content="" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+
+    <link href="css/common.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/validate.css" rel="stylesheet" type="text/css" />
+
+    <script src="../commonCode/jquery-3.3.1.js"></script>
+    <script src="js/common.js"></script>
+
+    <script src="js/Validform_v5.3.2.js"></script>
+    <script src="js/Validform_Datatype.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            menuCheckShow("checkmenu","a","checksum","li","sel",0);//选项卡效果
+            reviewsBox("#reviewsbox","a","sel");//评价星星
+            //listInfeedMove("indexmove","menu","a",4);//横向滑动
+            checkManyBox(".manycheckbox",".manychecksum","li",".manychecknum","span","sel");//通用左右切换，无法自动滚动
+            //吐槽建议640 下拉框
+            select();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pc_wrap">
+    <div class="proposal">
+        <div class="inside">
+            <div class="o">
+                <span class="fl">反馈类型</span>
+                <span class="fr">
+                    <span class="l">质量问题1</span>
+                    <a href="javascript:void(0)" class="r"></a>
+                    <div class="clear"></div>
+                    <div class="option hide">
+                        <ul>
+                            <li class="on">质量问题1</li>
+                            <li>质量问题2</li>
+                            <li>质量问题3</li>
+                        </ul>
+                    </div>
+                </span>
+                <div class="clear"></div>
+            </div>
+            <div class="o oh">
+                <span class="fl">您的邮箱</span>
+                <input type="text" class="fr oh"/>
+            </div>
+            <div class="o oh">
+                <span class="fl">收花人手机</span>
+                <input type="text" class="fr oh"/>
+            </div>
+            <textarea class="te" placeholder="反馈内容请写在这里"></textarea>
+            <input type="submit" class="sub" value="确认提交"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../commonCode/jquery-3.3.1.js"></script>
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        li{list-style:none;}
+        a{text-decoration: none;}
+    </style>
+</head>
+<body>
+<!--<form action="" method="">-->
+    <!--<input type="text"/>-->
+    <!--<input type="checkbox"/>-->
+    <!--<input type="radio"/>-->
+    <!--<textarea></textarea>-->
+    <!--<input type="submit"/>-->
+<!--</form>-->
+<form id="f1" name="f1" method="post" action=""
+      onsubmit="return checkform(this)">
+    <input name="username" value="" /></br>
+    <input name="password" value="" /></br>
+    <input type="button" value="提交" />
+</form>
+<script type="text/javascript">
+    $(function(){
+        function checkform(f){
+            var uname=f.username;
+            var pwd=f.password;
+            if(uname.value.length<4){
+                alert('用户长度必须大于4');
+  return false;
+            }
+            if(pwd.value.length!=6){
+                alert('用户密码必须大于 6位');
+                return false;
+            }
+            return true;
+        }
+    })
+//    js操作form的三种方式：
+//    1. 利用表单在文档中的索引或表单的name属性来引用表单
+//    复制代码 代码如下:
+//        document.forms[i]  //得到页面中的第i个表单
+//    document.forms[fromName] //得到页面中相应name的表单
+//    2. 利用表单的id属性
+//    复制代码 代码如下:
+//        document.getElementById(formId);
+//    3.
+//    复制代码 代码如下:
+//        document.formName;//最为常用的一种方式
+</script>
+</body>
+</html>
+<form method='post' action=''>
+    <label for='inputText'>inputText</label>
+    <input type='text' id='inputText'/>
+
+    <label for='checkBox1'>checkBox1</label>
+    <input type='checkbox' id='checkBox1'/>
+
+    <label for='checkBox2'>checkBox2</label>
+    <input type='checkbox' id='checkBox2'/>
+    <!--其他你想填写的表单选项-->
+    <input type='button' value='提交表单' id='submitBtn'/>
+</form>
+<!--<script>-->
+    <!--$(document).ready(function()-->
+    <!--{-->
+        <!--$('#submitBtn').click(function(e)-->
+        <!--{-->
+            <!--/*一系列根据自己的意图判断输入框是否已输入内容并决定是否往下执行*/-->
+
+            <!--//获取表单的系列化数据。这会生成一个A=valueA&B=valueB这种形式的字符串。-->
+            <!--var formData = $('form').serialize();-->
+            <!--$.post('目标地址',formData,成功/失败回调函数);-->
+            <!--e.preventDefault();-->
+        <!--});-->
+
+    <!--});-->
+<!--</script>-->
+
+<!--https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=js%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8Bform%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E7%9A%84%E5%80%BC%EF%BC%9F&oq=%25E5%25A6%2582%25E4%25BD%2595%25E6%259F%25A5%25E7%259C%258Bform%25E8%25A1%25A8%25E5%258D%2595%25E6%258F%2590%25E4%25BA%25A4%25E7%259A%2584%25E5%2580%25BC%253F&rsv_pq=afc891440000ff7d&rsv_t=1336WzChS7TA%2FUhCcHFYxihaPHhkhoFqSn87A8fJQk2jfk2wj4Bb%2FfVT3a8&rqlang=cn&rsv_enter=0&rsv_sug3=47&rsv_sug2=0&inputT=1215&rsv_sug4=1954&rsv_sug=1-->
+
+jQuery ajax - serialize() 方法
+jQuery ajax - serializeArray() 方法

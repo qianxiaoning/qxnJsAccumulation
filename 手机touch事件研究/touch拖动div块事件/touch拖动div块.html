@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<div class="q">
+
+</div>
+<div class="a"></div>
+<p class="b"></p>
+</body>
+</html>
+<script>
+    //触屏touch拖动
+    $(function(){
+        var a = $(".a");
+        var b = $(".b");
+        var selfX = 0;
+        var selfY = 0;
+        //jq事件绑定       js是标准下addEventListener( , , ) ie下attachEvent( , )
+        //jq 事件绑定bind one只执行一次的绑定 事件委托delegate on
+        //jq方法双重冒泡机制 即先捕获再冒泡 可以阻止冒泡
+        a.bind("touchstart",touchstart);
+        a.bind("touchmove",touchmove);
+        a.bind("touchend",touchend);
+        function touchstart(e){
+            var ev = e||window.event;
+            //除去自身偏移量
+            //jq touch坐标通过事件的event.originalEvent获取    js则是直接event
+            //event.touches[0]指第一根手指
+            //pageX带滚动条的浏览器中坐标 clientX不带滚动条的浏览器中坐标 screenX距离显示器的坐标
+            selfX = ev.originalEvent.touches[0].pageX - a.offset().left;
+            selfY = ev.originalEvent.touches[0].pageY - a.offset().top;
+        }
+        function touchmove(e){
+            var ev = e||window.event;
+            //阻止拖动的默认事件
+            //ev.preventDefault();
+
+            //ev.originalEvent.touches[0]时刻计算当前坐标
+            a.css("top",ev.originalEvent.touches[0].pageY-selfY);
+            a.css("left",ev.originalEvent.touches[0].pageX-selfX);
+            b.text("a距离坐标"+(ev.originalEvent.touches[0].pageX-selfX)+","+(ev.originalEvent.touches[0].pageY-selfY));
+        }
+        function touchend(e){
+            var ev = e||window.event;
+            //ev.originalEvent.changedTouches[0]计算touchstart到现在改变到什么坐标
+            b.text("a距离坐标"+(ev.originalEvent.changedTouches[0].pageX-selfX)+","+(ev.originalEvent.changedTouches[0].pageY-selfY));
+        }
+    })
+</script>

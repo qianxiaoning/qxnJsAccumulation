@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div>$().each()  方法</div>
+<div class="stars0">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div>hover  和prevAll() 方法</div>
+<div class="stars1">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div>prevAll() 方法</div>
+<div class="stars2">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div>for循环</div>
+<div class="stars3">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div>call方法    和   apply方法</div>
+<div class="stars3">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../commonCode/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+//     $().each()  方法
+    function starsE0(){
+        var ss = $(".stars0 ul li");
+        var _index = 0;
+        var save ;
+        //console.log(ss.length);
+        ss.hover(function(){
+                    _index = $(this).index();
+                    ss.each(function(i,d){
+                        $(d).addClass("on");
+                        if(i == _index){return false;}
+                    })
+                },
+                function(){
+                    ss.removeClass("on");
+                    var a = save>=0;
+                    if(save >= 0) {
+                        ss.each(function (i, d) {
+                            $(d).addClass("on");
+                            if (i == save) {
+                                return false
+                            }
+                        })
+                    }
+                    });
+        ss.click(function(){
+            save = $(this).index();
+//            ss.each(function(i,d){
+//                $(d).addClass("on");
+//                if(i == save){return false;}
+//            })
+        })
+    }
+//  hover  和 prevAll() 方法
+function starsE1(){
+    var ss = $(".stars1 ul li");
+    ss.click(function(){
+        $(this).prevAll().addClass("on");
+    })
+}
+//prevAll() 方法
+function starsE2(){
+    var ss = $(".stars2 ul li");
+    var save;
+    ss.hover(function(){
+        $(this).addClass("on");
+        $(this).prevAll().addClass("on");
+    },function(e){
+        ss.removeClass("on");
+        ss.eq(save+1).prevAll().addClass("on");
+    });
+    ss.click(function(){
+        save = $(this).index();
+    })
+}
+//for循环
+function starsE3(){
+    var ss = $(".stars3 ul li");
+    var _index;
+    var save;
+    ss.hover(function(){
+        ss.removeClass("on")
+        _index = $(this).index();
+        for(var i=0;i<=_index;i++){
+            ss.eq(i).addClass("on");
+        }
+    },function(){
+        ss.removeClass("on");
+        for(var i=0;i<=save;i++){
+            ss.eq(i).addClass("on");
+        }
+    });
+    ss.click(function(){
+        save = $(this).index();
+    })
+}
+//call方法    和   apply方法
+function starsE4(){}
+
+
+
+
+
+//评价星星效果
+function reviewsBox(boxid,_name,_hover){
+    var _box = $(boxid);
+    var _arr = _box.find(_name);
+    var _index = 0;
+    var _now = _box.find("."+_hover).length;
+
+    var _checkNow = function(_num){
+        _arr.removeClass(_hover);
+        for(var i=0;i<=_num;i++){
+            _arr.eq(i).addClass(_hover);
+        }
+    };//fun END
+    _arr.hover(function(){
+        _index = $(this).index();
+        _checkNow(_index);
+    },function(){
+        _checkNow(_now-1);
+    });
+    _arr.click(function(){
+        _now = $(this).index();
+        for(var i=0;i<=_now;i++){
+            _arr.eq(i).addClass(_hover);
+        }
+        _now += 1;
+    });
+}
+
+
+//执行
+    $(function(){
+        starsE0();
+        starsE1();
+        starsE2();
+        starsE3();
+        starsE4();
+    })
+</script>

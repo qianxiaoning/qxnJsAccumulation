@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<!--法1 定位left法-->
+<div class="nav">
+    <ul>
+        <li>
+            <a href="javascript:void(0)">首页分类1</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类2</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类3</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类4</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类5</a>
+        </li>
+        <li>
+            <a href="javascript:void(0)">首页分类6</a>
+        </li>
+    </ul>
+</div>
+<div class="a">111</div>
+<div class="b">222</div>
+<!--法2 ul translate3d数值法-->
+<!--结构似乎是一样的-->
+
+</body>
+</html>
+<script>
+    $(function (){
+        //jq页面单位比例计算
+        function setRootSize(){
+            //可视窗口宽度
+            var deviceWidth = $(window).width();
+            //除以设计稿宽度//大于设计稿 默认html 100px //小于设计稿 100px按比例缩小
+            //html里font-size 62.5% 表示默认字体改为10px 通过10/16*100%得来 原始默认16px
+            //个人觉得有了js控制，这html 62.5%不设也可
+            //body里font-size: .24rem;设置了默认字体大小24px
+            if(deviceWidth>640){deviceWidth = 640;}
+            $("html").css("font-size",deviceWidth/6.4);
+        };
+        setRootSize();
+        $(window).resize(setRootSize);
+        //法1 定位left法
+
+        //法2 ul translate3d数值法
+        function touchBanner_Translate3d(div,speed){
+            //设变量
+            var odiv = $(div);
+            var oul = odiv.children();
+            var oli = oul.children();
+            var oa = oli.children();
+            //Translate3d法 所需属性设置
+            //odiv.css({"overflow":"hidden"});
+            oul.css({"display":"flex","transform":"translate3d(0px,0px,0px)"});
+            oli.css({"flex-shrink":"0"});
+            oa.css({"box-sizing":"border-box"});
+            //自动生成小圆点
+            var dotDiv = $("<div class='dot'></div>");
+            oli.each(function(i,d){
+                dotDiv.append("<a href='javascript:void(0)'></a>")
+            });
+            var dot = dotDiv.children();
+            dot.eq(0).addClass("active_dot");
+            odiv.append(dotDiv);
+            //设dot的属性
+            dotDiv.css({"display":"flex","justify-content":"center","margin-top":"-.3rem"});
+            //clone第一张到最后
+            var cloneLi0 = oli.eq(0).clone();
+            //clone最后张到最前
+            //li的原始长度
+            var liLength = oli.length;
+            var cloneLi1 = oli.eq(liLength-1).clone();
+            oul.append(cloneLi0);
+            oul.prepend(cloneLi1);
+            //li的宽度
+            var liWidth = oli.eq(0).outerWidth(true);
+            //计数变量
+            var i = -1;
+            var j = 0;
+            //逻辑变量
+            var change = true;
+            //延时器变量
+            var timer;
+            //定时器变量
+            var inter;
+            //touch的变量
+            var startX = 0;
+            var offsetX = 0;
+            var lastOffsetX = 0;
+            var nowPos = 0;
+            var send = 0;
+            //预先移动
+            oul.css({"transform":"translate3d("+-liWidth+"px,0px,0px)"});
+            //左滑动函数
+            var a = liWidth*i;
+            function leftSlip(){
+                clearInterval(inter);
+                if(change == true){
+                    clearTimeout(timer);
+                    timer = setTimeout(function(){
+                        i--;
+                        j--;
+                        oul.css({"transform":"translate3d("+liWidth*i+"px,0px,0px)","transition-duration":"."+speed/100+"s"});
+                        oul.bind("transitionend",function(){
+                        	oul.css({"transition-duration":"0s"});
+                        });
+                        send = liWidth*(i);
+                        //圆点
+                        if(j == -liLength){j=0}
+                        dot.eq(-j).addClass("active_dot").siblings().removeClass("active_dot");
+                        //图片临界点
+                        if(i==-liLength-1){
+                            change = false;
+                            setTimeout(function(){
+                                i=-1;
+                                oul.css({"transform":"translate3d("+liWidth*i+"px,0px,0px)","transition-duration":"0s"});
+                                send = liWidth*(i);
+                                change = true;
+                            },speed)
+                        }
+                    },10);
+                }
+                setInter();
+                //延时器法 手机端有不支持再试试网上的getComputedStyle法 https://www.web-tinker.com/article/20286.html                               
+            }
+            //右滑动函数
+            function rightSlip(){
+                clearInterval(inter);
+                if(change == true){
+                    clearTimeout(timer);
+                    timer = setTimeout(function(){
+                        i++;
+                        j++;
+                        oul.css({"transform":"translate3d("+liWidth*i+"px,0px,0px)","transition-duration":"."+speed/100+"s"});
+                        oul.bind("transitionend",function(){
+                        	oul.css({"transition-duration":"0s"});
+                        });
+                        send = liWidth*(i);
+                        //圆点
+                        if(j == 1){j=-liLength+1}
+                        dot.eq(-j).addClass("active_dot").siblings().removeClass("active_dot");
+                        //图片临界点
+                        if(i==0){
+                            change = false;
+                            setTimeout(function(){
+                                i=-liLength;
+                                oul.css({"transform":"translate3d("+liWidth*i+"px,0px,0px)","transition-duration":"0s"});
+                                send = liWidth*(i);
+                                change = true;
+                            },speed);
+                        }
+                    },10);
+                }
+                setInter();
+                send = liWidth*i;
+            }
+            //自动轮播
+            function setInter(){
+                //inter = setInterval(leftSlip,3000)
+            }
+            //  setInter();
+            //绑定touch事件
+            oul.bind("touchstart",touchstart);
+            oul.bind("touchmove",touchmove);
+            oul.bind("touchend",touchend);
+            function touchstart(e){
+                var ev = e||window.event;
+                startX = ev.originalEvent.touches[0].pageX;
+                //console.log(offsetX);
+                //console.log(startX);
+                //lastOffsetX += offsetX;
+                //console.log(lastOffsetX);
+                //console.log(send)
+                if(lastOffsetX==0){lastOffsetX = -liWidth}
+                else{lastOffsetX = send}                
+            }
+            function touchmove(e){
+                var ev = e||window.event;
+                //阻止默认事件
+                ev.preventDefault();
+                offsetX = ev.originalEvent.touches[0].pageX - startX;
+                //console.log(offsetX);
+                nowPos = lastOffsetX + offsetX;
+                //console.log(nowPos);
+                oul.css({"transform":"translate3d("+nowPos+"px,0px,0px)"});
+            }
+            function touchend(e){
+                var ev = e||window.event;
+                //console.log(offsetX + liWidth);
+                if(offsetX >= 1){rightSlip();}
+                if(offsetX <= -1){leftSlip();}
+            }
+            $(".a").click(leftSlip);
+            $(".b").click(rightSlip);
+        }
+        touchBanner_Translate3d(".nav",300)
+    })
+</script>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../commonCode/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //下拉弹层
+            $(".nav .pL").dropLayer(".c");
+            $(".tip").dropLayer(".energy",".pL");
+        })
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <ul class="p">
+        <li class="pL">
+            实时监控
+            <ul class="c">
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+            </ul>
+        </li>
+        <li class="pL">
+            实时监控
+            <ul class="c">
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+            </ul>
+        </li>
+        <li class="pL">
+            实时监控
+            <ul class="c">
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+            </ul>
+        </li>
+        <li class="pL">
+            实时监控
+            <ul class="c">
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+                <li class="cL">子菜单</li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<!---->
+<div class="floor">
+    <ul>
+        <li class="pL">
+            <h3>
+                负一层
+                <div class="tip">
+                    提示
+                    <ul class="energy">
+                        <li>能耗</li>
+                        <li>能耗</li>
+                        <li>能耗</li>
+                    </ul>
+                </div>
+            </h3>
+            <div class="canvas"></div>
+        </li>
+        <li class="pL">
+            <h3>
+                负一层
+                <div class="tip">
+                    提示
+                    <ul class="energy">
+                        <li>能耗</li>
+                        <li>能耗</li>
+                        <li>能耗</li>
+                    </ul>
+                </div>
+            </h3>
+            <div class="canvas"></div>
+        </li>
+        <li class="pL">
+            <h3>
+                负一层
+                <div class="tip">
+                    提示
+                    <ul class="energy">
+                        <li>能耗</li>
+                        <li>能耗</li>
+                        <li>能耗</li>
+                    </ul>
+                </div>
+            </h3>
+            <div class="canvas"></div>
+        </li>
+        <li class="pL">
+            <h3>
+                负一层
+                <div class="tip">
+                    提示
+                    <ul class="energy">
+                        <li>能耗</li>
+                        <li>能耗</li>
+                        <li>能耗</li>
+                    </ul>
+                </div>
+            </h3>
+            <div class="canvas"></div>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    //下拉弹层
+    $.fn.dropLayer = function(a,b){
+        var that;
+        $(this).click(function(){
+            that = this;
+            var layer = $(this).find(a);
+            layer.slideToggle("fast");
+            if(b){
+                $(this).parents(b).siblings().find(a).slideUp();
+            }
+            else{
+                $(this).siblings().find(a).slideUp();
+            }
+            return this;
+        });
+        $(document).click(function(e){
+            var e=e||window.event;
+            if(that!=e.target){
+                $(a).slideUp();
+            }
+        });
+    }
+</script>
+</body>
+</html>

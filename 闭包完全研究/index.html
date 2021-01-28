@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="../commonCode/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <h3>搜索功能</h3>
+        <input type="text" class="search"/>
+        <br/>
+        <h3>选择大厦楼层部门</h3>
+        <select name="" id="" class="select">
+            <option value="">大厦</option>
+            <option value="">楼层</option>
+            <option value="">部门</option>
+        </select>
+        <br/>
+        <h3>下面是tree</h3>
+        <div class="tree"></div>
+    </div>
+    <div class="right">
+        <h3>XX总能耗-echarts</h3>
+        <div class="echarts"></div>
+        <h3>XX分项能耗-echarts</h3>
+        <div class="echarts"></div>
+        <h3>XX本月碳排放总量-echarts</h3>
+        <div class="echarts"></div>
+    </div>
+</div>
+<!--js部分-->
+<script type=text/javascript>
+    $(function(){
+//多功能树
+        multi_function_tree();
+        //跨二级作用域试验
+        //scope();
+        //跨三级return闭包
+        //scope1();
+        //跨三级函数参数闭包
+        //scope1_1();
+    })
+</script>
+</body>
+</html>
